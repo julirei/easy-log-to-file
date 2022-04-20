@@ -1,0 +1,36 @@
+{
+  "name": "easy-log-to-file",
+  "version": "1.0.0",
+  "description": "easy logging to file",
+  "main": "./lib/cjs/index.js",
+  "types": "./lib/cjs/index.d.js",
+  "module": "./lib/esm/index.js",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "test": "npm run test",
+    "clean": "rm -rf lib",
+    "build": "npx tsc -p tsconfig.json && npx tsc -p tsconfig-cjs.json",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julirei/easy-log-to-file.git"
+  },
+  "keywords": [
+    "logging",
+    "log",
+    "logger"
+  ],
+  "author": "Julia Reisinger <jreisinger.mmt-m2021@fh-salzburg.ac.at>",
+  "contributors": ["Elias Burgstaller <eburgstaller.mmt-m2021@fh-salzburg.ac.at>"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/julirei/easy-log-to-file/issues"
+  },
+  "homepage": "https://github.com/julirei/easy-log-to-file#readme",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}

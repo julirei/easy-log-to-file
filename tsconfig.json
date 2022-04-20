@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib/esm",
+    "declaration": true,
+    /* Language and Environment */
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    /* Modules */
+    "module": "ES2020",                                /* Specify what module code is generated. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ]
+}
