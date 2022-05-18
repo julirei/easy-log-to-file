@@ -1,4 +1,4 @@
-import { formatLogMessage, Logger, LoggerConfig } from "../src/logger"
+import { LogFormatter, Logger, LoggerConfig, LOG_LEVEL_INFO } from "../src/logger"
 
 test('create new Logger', () => {
     const logger = new Logger();
@@ -13,11 +13,11 @@ test('create new Logger with config', () => {
 })
 
 test('format log message correctly', () => {
-    const level = 'info';
+    const level = LOG_LEVEL_INFO;
     const date = new Date(2022, 4, 18);
     const message = 'Dummy Log Message';
     const expected = `. <${date.toISOString()}> [INFO] ${message}`;
     
-    const formattedLogMessage = formatLogMessage(level, date, message);
+    const formattedLogMessage = new LogFormatter().format(level, date, message);
     expect(formattedLogMessage).toEqual(expected);
 })

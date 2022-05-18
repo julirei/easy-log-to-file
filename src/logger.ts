@@ -6,9 +6,11 @@ export class Logger {
      * By default, a default configuration is used.
      */
     config: LoggerConfig;
+    formatter: LogFormatter;
 
     constructor(config?: LoggerConfig) {
         this.config = config || new LoggerConfig();
+        this.formatter = new LogFormatter();
     }
 
     /**
@@ -31,20 +33,31 @@ export class LoggerConfig {
     }
 }
 
+/**
+ * All available log levels.
+ */
 export type LogLevel = 'info' | 'warning' | 'error';
+export const LOG_LEVEL_INFO: LogLevel = 'info'; 
+export const LOG_LEVEL_WARNING: LogLevel = 'warning'; 
+export const LOG_LEVEL_ERROR: LogLevel = 'error'; 
 
-export const formatLogMessage = (level: LogLevel, date: Date, message: string): string => {
-    return `${logLevelSymbols[level]} <${date.toISOString()}> [${logLevelCaptions[level]}] ${message}`;
-};
+/**
+ * Formats log messages.
+ */
+export class LogFormatter {
+    static readonly logLevelSymbols = {
+        'info': '.',
+        'warning': '*',
+        'error': '!'
+    };
+    
+    static readonly logLevelCaptions = {
+        'info': 'INFO',
+        'warning': 'WARNING',
+        'error': 'ERROR'
+    };
 
-const logLevelSymbols = {
-    'info': '.',
-    'warning': '*',
-    'error': '!'
-};
-
-const logLevelCaptions = {
-    'info': 'INFO',
-    'warning': 'WARNING',
-    'error': 'ERROR'
-};
+    format(level: LogLevel, date: Date, message: string): string {
+        return `${LogFormatter.logLevelSymbols[level]} <${date.toISOString()}> [${LogFormatter.logLevelCaptions[level]}] ${message}`;
+    };
+}
