@@ -3,16 +3,32 @@ import * as fs from 'fs';
 export class Logger {
 
     /**
+     * Specify configuration for this logger. 
+     * 
      * By default, a default configuration is used.
      */
     config: LoggerConfig;
+
+    /**
+     * Specify how log messages should be formatted.
+     */
     formatter: LogFormatter;
 
-    constructor(config?: LoggerConfig) {
+    /**
+     * Specify where log messages should be written to.
+     */
+    writer: LogWriter;
+
+    constructor(
+        config?: LoggerConfig, 
+        formatter?: LogFormatter,
+        writer?: LogWriter
+    ) {
         this.config = config || {
             output: './logs'
         };
-        this.formatter = new LogFormatter();
+        this.formatter = formatter || new StandardLogFormatter();
+        this.writer = writer || new FsLogWriter(); 
     }
 
     /**
@@ -45,7 +61,14 @@ export const LOG_LEVEL_ERROR: LogLevel = 'error';
 /**
  * Formats log messages.
  */
-export class LogFormatter {
+export interface LogFormatter {
+    format(level: LogLevel, date: Date, message: string): string;
+}
+
+/**
+ * Standard log format.
+ */
+export class StandardLogFormatter implements LogFormatter {
     static readonly logLevelSymbols = {
         'info': '.',
         'warning': '*',
@@ -59,6 +82,20 @@ export class LogFormatter {
     };
 
     format(level: LogLevel, date: Date, message: string): string {
-        return `${LogFormatter.logLevelSymbols[level]} <${date.toISOString()}> [${LogFormatter.logLevelCaptions[level]}] ${message}`;
+        return `${StandardLogFormatter.logLevelSymbols[level]} <${date.toISOString()}> [${StandardLogFormatter.logLevelCaptions[level]}] ${message}`;
     };
 }
+
+/**
+ * Writes log messages to an output medium.
+ */
+export interface LogWriter {
+    write(message: string): Promise<void>;
+}
+
+export class FsLogWriter implements LogWriter {
+    write(message: string): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+}
+
