@@ -1,4 +1,4 @@
-import { LogFormatter, Logger, LoggerConfig, LOG_LEVEL_INFO } from "../src/logger"
+import { LogFormatter, Logger, LOG_LEVEL_INFO } from "../src/logger"
 
 test('create new Logger', () => {
     const logger = new Logger();
@@ -7,7 +7,9 @@ test('create new Logger', () => {
 })
 
 test('create new Logger with config', () => {
-    const config = new LoggerConfig();
+    const config = {
+        output: './my_logs'
+    };
     const logger = new Logger(config);
     expect(logger.config).toEqual(config);
 })

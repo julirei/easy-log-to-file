@@ -9,7 +9,9 @@ export class Logger {
     formatter: LogFormatter;
 
     constructor(config?: LoggerConfig) {
-        this.config = config || new LoggerConfig();
+        this.config = config || {
+            output: './logs'
+        };
         this.formatter = new LogFormatter();
     }
 
@@ -21,16 +23,15 @@ export class Logger {
     }
 }
 
-export class LoggerConfig {
+/**
+ * Used to configure a Logger.
+ */
+export type LoggerConfig = {
     /**
      * The path to the folder into which the log files
      * will be written.
      */
     output: string;
-
-    constructor(output: string = './logs') {
-        this.output = output;
-    }
 }
 
 /**
