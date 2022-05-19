@@ -23,7 +23,10 @@ export class FsLogWriter implements LogWriter {
 
     constructor(filePath: string) {
         this.filePath = path.normalize(filePath);
-        this.stream = fs.createWriteStream(this.filePath); // TODO
+        this.stream = fs.createWriteStream(this.filePath, {
+            flags: 'a', 
+            encoding: 'utf8'
+        }); // TODO
         this.stream.write('\n');
     }
 

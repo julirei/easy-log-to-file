@@ -5,7 +5,7 @@
     /* Language and Environment */
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     /* Modules */
-    "module": "ES2020",                                /* Specify what module code is generated. */
+    "module": "CommonJS",                                /* Specify what module code is generated. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
