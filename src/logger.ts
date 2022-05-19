@@ -24,7 +24,7 @@ export class Logger {
         writer?: LogWriter
     }) {
         this.config = config || {
-            output: './logs/development.log'
+            output: 'logger.log'
         };
         this.formatter = (args && args.formatter) || new StandardLogFormatter();
         this.writer = (args && args.writer) || new FsLogWriter(this.config.output); 
@@ -73,7 +73,10 @@ export class Logger {
 export type LoggerConfig = {
     /**
      * The path to the folder into which the log files
-     * will be written.
+     * will be written (e.g., ./logs/dev.log).
+     * 
+     * Important: The specified path must exist such that the log file 
+     * can be created inside this folder.
      */
     output: string;
 }
