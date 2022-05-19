@@ -66,7 +66,23 @@ test('warning() writes log message', () => {
 
     // Act.
     const message = 'Warning Log Message';
-    logger.info(message);
+    logger.warning(message);
+    
+    // Expect.
+    expect(mockWriteFn).toBeCalledTimes(1);
+})
+
+test('error() writes log message', () => {
+    const logger = new Logger({
+        config: {
+            'output': './logs/error.log'
+        },
+        writer: mockWriter
+    });
+
+    // Act.
+    const message = 'Error Log Message';
+    logger.error(message);
     
     // Expect.
     expect(mockWriteFn).toBeCalledTimes(1);

@@ -54,6 +54,18 @@ export class Logger {
         );
         this.writer.write(logMessage);
     }
+
+    /**
+     * Logs an error message.
+     */
+     error(message: string) {
+        const logMessage = this.formatter.format(
+            LogLevel.error, 
+            new Date(), 
+            message
+        );
+        this.writer.write(logMessage);
+    }
 }
 
 /**
