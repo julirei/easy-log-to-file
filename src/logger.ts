@@ -1,7 +1,7 @@
-import * as fs from 'fs';
+import { LogFormatter, StandardLogFormatter } from './formatter';
+import { FsLogWriter, LogWriter } from './writer';
 
 export class Logger {
-
     /**
      * Specify configuration for this logger. 
      * 
@@ -19,23 +19,29 @@ export class Logger {
      */
     writer: LogWriter;
 
-    constructor(
+    constructor(args: {
         config?: LoggerConfig, 
         formatter?: LogFormatter,
         writer?: LogWriter
-    ) {
-        this.config = config || {
-            output: './logs'
+    }) {
+        this.config = args.config || {
+            output: './logs/development.log'
         };
-        this.formatter = formatter || new StandardLogFormatter();
-        this.writer = writer || new FsLogWriter(); 
+        this.formatter = args.formatter || new StandardLogFormatter();
+        this.writer = args.writer || new FsLogWriter(this.config.output); 
     }
 
     /**
      * Logs an info message.
      */
     info(message: string) {
-
+        const logMessage = this.formatter.format(
+            LogLevel.info, 
+            new Date(), 
+            message
+        );
+        this.writer.write(logMessage);
+        // TODO: Determine which file to write this message to.
     }
 }
 
@@ -53,49 +59,13 @@ export type LoggerConfig = {
 /**
  * All available log levels.
  */
-export type LogLevel = 'info' | 'warning' | 'error';
-export const LOG_LEVEL_INFO: LogLevel = 'info'; 
-export const LOG_LEVEL_WARNING: LogLevel = 'warning'; 
-export const LOG_LEVEL_ERROR: LogLevel = 'error'; 
-
-/**
- * Formats log messages.
- */
-export interface LogFormatter {
-    format(level: LogLevel, date: Date, message: string): string;
+export enum LogLevel  {
+    info, 
+    warning, 
+    error
 }
 
-/**
- * Standard log format.
- */
-export class StandardLogFormatter implements LogFormatter {
-    static readonly logLevelSymbols = {
-        'info': '.',
-        'warning': '*',
-        'error': '!'
-    };
-    
-    static readonly logLevelCaptions = {
-        'info': 'INFO',
-        'warning': 'WARNING',
-        'error': 'ERROR'
-    };
 
-    format(level: LogLevel, date: Date, message: string): string {
-        return `${StandardLogFormatter.logLevelSymbols[level]} <${date.toISOString()}> [${StandardLogFormatter.logLevelCaptions[level]}] ${message}`;
-    };
-}
 
-/**
- * Writes log messages to an output medium.
- */
-export interface LogWriter {
-    write(message: string): Promise<void>;
-}
 
-export class FsLogWriter implements LogWriter {
-    write(message: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-}
 
