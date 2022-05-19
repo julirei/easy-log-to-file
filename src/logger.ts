@@ -19,16 +19,15 @@ export class Logger {
      */
     writer: LogWriter;
 
-    constructor(args: {
-        config?: LoggerConfig, 
+    constructor(config?: LoggerConfig, args?: {
         formatter?: LogFormatter,
         writer?: LogWriter
     }) {
-        this.config = args.config || {
+        this.config = config || {
             output: './logs/development.log'
         };
-        this.formatter = args.formatter || new StandardLogFormatter();
-        this.writer = args.writer || new FsLogWriter(this.config.output); 
+        this.formatter = (args && args.formatter) || new StandardLogFormatter();
+        this.writer = (args && args.writer) || new FsLogWriter(this.config.output); 
     }
 
     /**

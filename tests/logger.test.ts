@@ -17,7 +17,7 @@ beforeEach(() => {
 });
 
 test('create new Logger', () => {
-    const logger = new Logger({});
+    const logger = new Logger();
     expect(logger).toBeTruthy();
     expect(logger.config).toBeTruthy();
 })
@@ -26,7 +26,7 @@ test('create new Logger with config', () => {
     const config = {
         output: './my_logs'
     };
-    const logger = new Logger({config});
+    const logger = new Logger(config);
     expect(logger.config).toEqual(config);
 })
 
@@ -42,11 +42,8 @@ test('format (standard) log message correctly', () => {
 
 test('info() writes log message', () => {
     const logger = new Logger({
-        config: {
-            'output': './logs/info.log'
-        },
-        writer: mockWriter
-    });
+        'output': './logs/info.log'
+    }, { writer: mockWriter});
 
     // Act.
     const message = 'Info Log Message';
@@ -58,11 +55,8 @@ test('info() writes log message', () => {
 
 test('warning() writes log message', () => {
     const logger = new Logger({
-        config: {
-            'output': './logs/warning.log'
-        },
-        writer: mockWriter
-    });
+        'output': './logs/warning.log'
+    }, { writer: mockWriter});
 
     // Act.
     const message = 'Warning Log Message';
@@ -74,11 +68,8 @@ test('warning() writes log message', () => {
 
 test('error() writes log message', () => {
     const logger = new Logger({
-        config: {
-            'output': './logs/error.log'
-        },
-        writer: mockWriter
-    });
+        'output': './logs/error.log'
+    }, { writer: mockWriter});
 
     // Act.
     const message = 'Error Log Message';
