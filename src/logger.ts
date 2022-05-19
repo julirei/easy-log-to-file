@@ -42,6 +42,18 @@ export class Logger {
         );
         this.writer.write(logMessage);
     }
+
+    /**
+     * Logs a warning message.
+     */
+     warning(message: string) {
+        const logMessage = this.formatter.format(
+            LogLevel.warning, 
+            new Date(), 
+            message
+        );
+        this.writer.write(logMessage);
+    }
 }
 
 /**
