@@ -41,7 +41,6 @@ export class Logger {
             message
         );
         this.writer.write(logMessage);
-        // TODO: Determine which file to write this message to.
     }
 }
 
