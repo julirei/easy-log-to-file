@@ -32,7 +32,7 @@ export class FsLogWriter implements LogWriter {
 
     async write(message: string): Promise<void> {
         this.stream.write(message + '\n', (error) => {
-            // TODO: Handle error.
+            console.error(error);
         });
     }
 }

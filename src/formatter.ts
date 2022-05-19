@@ -13,7 +13,7 @@ export interface LogFormatter {
 export class StandardLogFormatter implements LogFormatter {
     format(level: LogLevel, date: Date, message: string): string {
         return `${this.logLevelSymbol(level)} <${date.toISOString()}> [${this.logLevelCaption(level)}] ${message}`;
-    };
+    }
 
     private logLevelSymbol(level: LogLevel): string {
         switch(level) {
