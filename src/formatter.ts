@@ -29,11 +29,11 @@ export class StandardLogFormatter implements LogFormatter {
     private logLevelCaption(level: LogLevel): string {
         switch(level) {
             case LogLevel.info:
-                return 'INFO';
+                return 'INF';
             case LogLevel.warning:
-                return 'WARNING';
+                return 'WRN';
             case LogLevel.error:
-                return 'ERROR';
+                return 'ERR';
         }
     }
 }

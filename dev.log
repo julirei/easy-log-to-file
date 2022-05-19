@@ -1,0 +1,8 @@
+
+. <2022-05-19T15:32:55.741Z> [INFO] I am an info message
+* <2022-05-19T15:32:55.742Z> [WARNING] I am a warning message
+! <2022-05-19T15:32:55.742Z> [ERROR] I am an error message
+
+. <2022-05-19T15:34:42.004Z> [INF] I am an info message
+* <2022-05-19T15:34:42.004Z> [WAR] I am a warning message
+! <2022-05-19T15:34:42.004Z> [ERR] I am an error message
