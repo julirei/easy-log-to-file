@@ -17,44 +17,60 @@ $ npm install easy-log-to-file
 ## Usage
 
 ### Creating a Logger
-The following code creates a new Logger with a default configuration:
+The following code creates a new `Logger` with a default configuration that writes log messages to STDOUT:
 ```
 var logger = new Logger();
+logger.info('hello to STDOUT');
+//=> writes a log message to STDOUT
 ```
-By default, the Logger writes to STDOUT.  file path ... (STDOUT?)
 
-To log directly to a file, pass a custom logger configuration when creating a new Logger:
+To log directly to a file, pass a custom logger configuration when creating a new `Logger`:
 ```
 var logger = new Logger({
     output: 'development.log'
 });
+logger.info('hello to file');
+//=> writes a log message to development.log
 ```
-This TODO ...
-For all configuration params see TODO ...
+New log messages are appended to the file.
+Currently, there is no strategy/policy for handling large log files. 
 
 ### Logging
 
 The Logger has 3 different logging levels:
 ```info, warning, error```.
-
-TODO:Format
-TODO:Output
+This is how log messages are formatted:
+- info: `. <${datetime}> [INF] ${message}` 
+- warning: `* <${datetime}> [WRN] ${message}` 
+- error: `! <${datetime}> [ERR] ${message}` 
 
 ```
 logger.info('fetching users');
-// out: 
+//=> . <datetime> [INF] fetching users
+
+logger.warning('there are no users to fetch');
+//=> * <datetime> [WRN] there are no users to fetch
+
+logger.error('users could not be fetched');
+//=> ! <datetime> [ERR] users could not be fetched
 ```
 
 ## Example 
-TODO
+
 ```
-import {Logger} from 'TODO';
+import {Logger} from 'easy-log-to-file';
 
 var logger = new Logger({
     output: 'dev.log'
 });
 
-TODO
+logger.info('fetching users ...');
+try {
+    await fetchUsers();
+    logger.info('fetched users');
+} catch(err) {
+    logger.error('failed to fetch users');
+}
 ```
 
 ## Authors
