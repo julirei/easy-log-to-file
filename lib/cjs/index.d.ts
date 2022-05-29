@@ -1,2 +1,2 @@
-import { randomName } from "./random-name";
-export { randomName };
+import { Logger, LoggerConfig } from "./logger";
+export { Logger, LoggerConfig };
