@@ -11,7 +11,13 @@ import * as path from 'path';
       */
     write(message: string): Promise<void>;
 }
-// Mir kam heute hiob wieder in den sinn sbahn: es wird alles gut werden ... d amusste ich Gott danken ... es wird alles gut werden
+
+export class StdoutLogWriter implements LogWriter {
+    async write(message: string): Promise<void> {
+        process.stdout.write(message);
+    }
+}
+
 export class FsLogWriter implements LogWriter {
     /**
      * The path to the file to which this writer should 

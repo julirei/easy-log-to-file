@@ -1,11 +1,9 @@
 import { LogFormatter, StandardLogFormatter } from './formatter';
-import { FsLogWriter, LogWriter } from './writer';
+import { FsLogWriter, LogWriter, StdoutLogWriter } from './writer';
 
 export class Logger {
     /**
      * Specify configuration for this logger. 
-     * 
-     * By default, a default configuration is used.
      */
     config: LoggerConfig;
 
@@ -16,6 +14,8 @@ export class Logger {
 
     /**
      * Specify where log messages should be written to.
+     * 
+     * Most use-cases do not require you to ever change this!
      */
     writer: LogWriter;
 
@@ -24,10 +24,10 @@ export class Logger {
         writer?: LogWriter
     }) {
         this.config = config || {
-            output: 'logger.log'
+            output: 'STDOUT'
         };
         this.formatter = (args && args.formatter) || new StandardLogFormatter();
-        this.writer = (args && args.writer) || new FsLogWriter(this.config.output); 
+        this.writer = (args && args.writer) || (this.config.output === 'STDOUT' ? new StdoutLogWriter() : new FsLogWriter(this.config.output)); 
     }
 
     /**
@@ -72,11 +72,9 @@ export class Logger {
  */
 export type LoggerConfig = {
     /**
-     * The path to the folder into which the log files
-     * will be written (e.g., ./logs/dev.log).
+     * The (writeable) filepath to which logs should be written.
      * 
-     * Important: The specified path must exist such that the log file 
-     * can be created inside this folder.
+     * By default, set to STDOUT.
      */
     output: string;
 }

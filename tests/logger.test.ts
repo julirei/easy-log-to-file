@@ -1,6 +1,8 @@
 import { StandardLogFormatter } from "../src/formatter";
 import { Logger, LogLevel } from "../src/logger"
 
+const testLogFilePath = 'test.log';
+
 let mockWriter;
 let mockWriteFn;
 
@@ -24,7 +26,7 @@ test('create new Logger', () => {
 
 test('create new Logger with config', () => {
     const config = {
-        output: './my_logs'
+        output: testLogFilePath
     };
     const logger = new Logger(config);
     expect(logger.config).toEqual(config);
