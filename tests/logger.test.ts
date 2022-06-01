@@ -36,7 +36,7 @@ test('format (standard) log message correctly', () => {
     const level = LogLevel.info;
     const date = new Date(2022, 4, 18);
     const message = 'Dummy Log Message';
-    const expected = `. <${date.toISOString()}> [INFO] ${message}`;
+    const expected = `. <${date.toISOString()}> [INF] ${message}`;
     
     const formattedLogMessage = new StandardLogFormatter().format(level, date, message);
     expect(formattedLogMessage).toEqual(expected);
