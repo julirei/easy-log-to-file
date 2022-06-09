@@ -33,7 +33,7 @@ logger.info('hello to file');
 //=> writes a log message to development.log
 ```
 New log messages are appended to the file.
-Currently, there is no strategy/policy for handling large log files. 
+Currently, there is no strategy or policy for handling large log files. 
 
 ### Logging
 
